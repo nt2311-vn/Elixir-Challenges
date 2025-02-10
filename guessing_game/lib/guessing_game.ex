@@ -1,36 +1,32 @@
 defmodule GuessingGame do
-  def guess(a, b) when a > b, do: guess(b, a)
+  def start do
+    IO.puts("From 1 to 100 please guess a number\n")
+    answer = 44
+    guess(answer)
+  end
 
-  def guess(low, high) do
-    answer = IO.gets("Hmm... may be you're thinking of #{mid(low, high)}?\n")
+  def guess(answer) do
+    input = IO.gets("> ")
 
-    case String.trim(answer) do
-      "bigger" ->
-        bigger(low, high)
+    case input |> String.trim() |> Integer.parse() do
+      :error ->
+        IO.puts("Please enter a proper nunber\n")
+        guess(answer)
 
-      "smaller" ->
-        smaller(low, high)
+      {number, _} when number < 1 or number > 100 ->
+        IO.puts("Please enter in the range of 1 upto 100\n")
+        guess(answer)
 
-      "yes" ->
-        "I knew I could guess your number"
+      {number, _} when number > answer ->
+        IO.puts("Ah ah.. too high\n")
+        guess(answer)
+
+      {number, _} when number < answer ->
+        IO.puts("Ah ah... too low\n")
+        guess(answer)
 
       _ ->
-        IO.puts(~s{Type "bigger", "smaller", or "yes"})
-        guess(low, high)
+        IO.puts("You are correct #{answer}\n")
     end
-  end
-
-  def mid(low, high) do
-    div(low + high, 2)
-  end
-
-  def bigger(low, high) do
-    new_low = min(high, mid(low, high) + 1)
-    guess(new_low, high)
-  end
-
-  def smaller(low, high) do
-    new_high = max(low, mid(low, high) - 1)
-    guess(low, new_high)
   end
 end
