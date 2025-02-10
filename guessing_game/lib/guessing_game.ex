@@ -1,7 +1,7 @@
 defmodule GuessingGame do
   def start do
     IO.puts("From 1 to 100 please guess a number\n")
-    answer = 44
+    answer = Enum.random(1..100)
     guess(answer)
   end
 
