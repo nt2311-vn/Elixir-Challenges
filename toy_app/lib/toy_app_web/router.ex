@@ -1,5 +1,4 @@
 defmodule ToyAppWeb.Router do
-  alias ToyAppWeb.UserController
   use ToyAppWeb, :router
 
   pipeline :browser do
