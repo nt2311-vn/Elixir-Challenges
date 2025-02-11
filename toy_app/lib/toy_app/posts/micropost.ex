@@ -3,8 +3,8 @@ defmodule ToyApp.Posts.Micropost do
   import Ecto.Changeset
 
   schema "microposts" do
-    field :content, :string
-    field :user_id, :integer
+    field(:content, :string)
+    field(:user_id, :integer)
 
     timestamps(type: :utc_datetime)
   end
@@ -14,5 +14,6 @@ defmodule ToyApp.Posts.Micropost do
     micropost
     |> cast(attrs, [:content, :user_id])
     |> validate_required([:content, :user_id])
+    |> validate_length(:content, max: 280)
   end
 end
