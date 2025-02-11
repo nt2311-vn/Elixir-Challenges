@@ -1184,3 +1184,5 @@
 13:53:28.592 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 410µs
 
 13:53:28.863 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 410µs
+
+13:53:32.930 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 512µs
