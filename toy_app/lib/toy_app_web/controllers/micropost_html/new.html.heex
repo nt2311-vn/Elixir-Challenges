@@ -1,0 +1,8 @@
+<.header>
+  New Micropost
+  <:subtitle>Use this form to manage micropost records in your database.</:subtitle>
+</.header>
+
+<.micropost_form changeset={@changeset} action={~p"/microposts"} />
+
+<.back navigate={~p"/microposts"}>Back to microposts</.back>

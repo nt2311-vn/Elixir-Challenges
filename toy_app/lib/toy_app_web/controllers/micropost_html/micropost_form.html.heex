@@ -1,0 +1,10 @@
+<.simple_form :let={f} for={@changeset} action={@action}>
+  <.error :if={@changeset.action}>
+    Oops, something went wrong! Please check the errors below.
+  </.error>
+  <.input field={f[:content]} type="text" label="Content" />
+  <.input field={f[:user_id]} type="number" label="User" />
+  <:actions>
+    <.button>Save Micropost</.button>
+  </:actions>
+</.simple_form>
