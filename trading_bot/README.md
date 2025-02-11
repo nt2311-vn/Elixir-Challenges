@@ -1,0 +1,4 @@
+# TradingBot
+
+**TODO: Add description**
+
