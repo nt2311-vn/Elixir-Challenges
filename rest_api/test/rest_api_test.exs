@@ -1,8 +1,17 @@
-defmodule RestApiTest do
-  use ExUnit.Case
-  doctest RestApi
+defmodule RestApiTest.Router do
+  use ExUnit.Case, async: true
 
-  test "greets the world" do
-    assert RestApi.hello() == :world
+  use Plug.Test
+
+  @opts RestApi.Router.init([])
+
+  test "return ok" do
+    conn = conn(:get, "/")
+
+    conn = RestApi.Router.call(conn, @opts)
+
+    assert conn.state == :sent
+    assert conn.status == 200
+    assert conn.resp_body == "OK"
   end
 end
