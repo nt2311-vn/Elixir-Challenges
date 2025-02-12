@@ -58,5 +58,6 @@ defmodule ToyAppWeb.UserController do
     conn
     |> put_flash(:info, "User deleted successfully.")
     |> redirect(to: ~p"/users")
+
   end
 end
