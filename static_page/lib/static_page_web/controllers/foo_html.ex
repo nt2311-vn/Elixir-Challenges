@@ -1,5 +1,0 @@
-defmodule StaticPageWeb.FooHTML do
-  use StaticPageWeb, :html
-
-  embed_templates("templates/*")
-end
