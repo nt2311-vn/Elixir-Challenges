@@ -28,11 +28,19 @@ defmodule StaticPageWeb.ConnCase do
       import Plug.Conn
       import Phoenix.ConnTest
       import StaticPageWeb.ConnCase
+
+      alias StaticPageWeb.Router.Helpers, as: Routes
+      use HTMLAssertion
     end
   end
 
   setup tags do
-    StaticPage.DataCase.setup_sandbox(tags)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(StaticPage.Repo)
+
+    unless tags[:async] do
+      Ecto.Adapters.SQL.Sandbox.mode(StaticPage.Repo, {:shared, self()})
+    end
+
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end
