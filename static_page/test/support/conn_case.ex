@@ -29,7 +29,6 @@ defmodule StaticPageWeb.ConnCase do
       import Phoenix.ConnTest
       import StaticPageWeb.ConnCase
 
-      alias StaticPageWeb.Router.Helpers, as: Routes
       use HTMLAssertion
     end
   end
