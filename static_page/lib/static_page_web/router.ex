@@ -22,6 +22,7 @@ defmodule StaticPageWeb.Router do
 
     get("/static_pages/home", StaticPageController, :home)
     get("/static_pages/help", StaticPageController, :help)
+    get("/static_pages/about", StaticPageController, :about)
   end
 
   # Other scopes may use custom stacks.
