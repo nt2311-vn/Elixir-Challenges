@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Home | Phoenix Tutorial Static Page</title>
+    <title>
+    <% StaticPageWeb.DynamicTextHelpers.page_title(Enum.into(assigns, 
+      %{action: @conn.private.phoenix_action})) %>
+    </title>
   </head>
   <body>
   <h1>Phoenix Static Page</h1>
