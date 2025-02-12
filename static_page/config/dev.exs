@@ -3,7 +3,7 @@ import Config
 # Configure your database
 config :static_page, StaticPage.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "123$%^",
   hostname: "localhost",
   database: "static_page_dev",
   stacktrace: true,
