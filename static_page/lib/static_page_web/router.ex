@@ -19,8 +19,12 @@ defmodule StaticPageWeb.Router do
 
     get("/", PageController, :home)
     get("/hello", PageController, :hello)
+
     get("/static_pages/home", StaticPageController, :home)
     get("/static_pages/help", StaticPageController, :help)
+
+    get("/foo/bar", FooController, :bar)
+    get("/foo/baz", FooController, :baz)
   end
 
   # Other scopes may use custom stacks.
