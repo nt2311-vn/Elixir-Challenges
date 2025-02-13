@@ -33,6 +33,9 @@ defmodule Streamer.Binance do
       :ignore => event["M"]
     }
 
-    Logger.debug("Trade event received" <> "#{trade_event.symbol}@#{trade_event.price}")
+    Logger.debug(
+      "Trade event received " <>
+        "#{trade_event.symbol} type:#{trade_event.event_type} price:@#{trade_event.price} vol:#{trade_event.quantity} market_maker:#{trade_event.buyer_market_maker}"
+    )
   end
 end
