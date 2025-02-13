@@ -1,19 +1,19 @@
+defmodule State do
+  @enforce_keys [:symbol, :profit_interval, :tick_size]
+  defstruct [
+    :symbol,
+    :buy_order,
+    :sell_order,
+    :profit_interval,
+    :tick_size
+  ]
+end
+
 defmodule Naive.Trader do
   use GenServer
   require Logger
   alias Streamer.Binance.TradeEvent
   alias Decimal, as: D
-
-  defmodule State do
-    @enforce_keys [:symbol, :profit_interval, :tick_size]
-    defstruct [
-      :symbol,
-      :buy_order,
-      :sell_order,
-      :profit_interval,
-      :tick_size
-    ]
-  end
 
   def start_link(%{} = args) do
     GenServer.start_link(__MODULE__, args, name: :trader)
@@ -25,6 +25,7 @@ defmodule Naive.Trader do
     Logger.info("Initializing new trader for #{symbol}")
 
     tick_size = fetch_tick_size(symbol)
+    Logger.info("Tick size #{tick_size}")
 
     {:ok, %State{symbol: symbol, profit_interval: profit_interval, tick_size: tick_size}}
   end
@@ -40,7 +41,7 @@ defmodule Naive.Trader do
   end
 
   def handle_cast(%TradeEvent{price: price}, %State{symbol: symbol, buy_order: nil} = state) do
-    quantity = "1"
+    quantity = "3"
 
     Logger.info("Placing BUY order for #{symbol} @ #{price}, quantity: #{quantity}")
 

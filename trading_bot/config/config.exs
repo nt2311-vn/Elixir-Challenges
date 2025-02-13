@@ -17,9 +17,9 @@ import Config
 #       metadata: [:user_id]
 #
 
+config :logger,
+  level: :info
+
 if File.exists?("config/secrets.exs") do
   import_config("secrets.exs")
 end
-
-config :logger,
-  level: :info
