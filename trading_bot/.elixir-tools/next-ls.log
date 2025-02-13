@@ -1012,3 +1012,5 @@
 14:23:47.035 [debug] handled notification client -> server textDocument/didSave in 26ms
 
 14:23:47.161 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 43ms
+
+14:24:40.170 id=28 [debug] handled request client -> server shutdown in 16ms
