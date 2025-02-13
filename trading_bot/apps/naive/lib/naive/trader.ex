@@ -40,7 +40,7 @@ defmodule Naive.Trader do
   end
 
   def handle_cast(%TradeEvent{price: price}, %State{symbol: symbol, buy_order: nil} = state) do
-    quantity = "100"
+    quantity = "1"
 
     Logger.info("Placing BUY order for #{symbol} @ #{price}, quantity: #{quantity}")
 
