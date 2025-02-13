@@ -18436,3 +18436,5 @@
 16:55:05.539 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 307µs
 
 16:55:06.541 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 1004ms
+
+16:56:52.095 id=226 [debug] handled request client -> server shutdown in 33ms
