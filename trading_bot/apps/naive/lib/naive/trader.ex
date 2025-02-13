@@ -86,4 +86,21 @@ defmodule Naive.Trader do
 
     D.to_string(D.mult(D.div_int(gross_target_price, tick_size), tick_size), :normal)
   end
+
+  def handle_cast(
+        %TradeEvent{seller_order_id: order_id, quantity: quantity},
+        %State{
+          sell_order: %Binance.OrderResponse{
+            order_id: order_id,
+            orig_qty: quantity
+          }
+        } = state
+      ) do
+    Logger.info("Trade finished, trader will now exit")
+    {:stop, :normal, state}
+  end
+
+  def handle_cast(%TradeEvent{}, state) do
+    {:noreply, state}
+  end
 end
