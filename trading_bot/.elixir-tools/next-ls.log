@@ -1699,3 +1699,166 @@
 11:12:24.062 [debug] handled notification client -> server textDocument/didClose in 25ms
 
 11:12:27.722 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 1006ms
+
+11:14:32.403 [debug] handled notification client -> server textDocument/didOpen in 205µs
+
+11:14:32.840 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 204µs
+
+11:14:39.655 [debug] handled notification client -> server textDocument/didClose in 205µs
+
+11:15:02.433 [debug] handled notification client -> server textDocument/didOpen in 204µs
+
+11:15:02.726 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 307µs
+
+11:15:03.734 [debug] handled notification client -> server textDocument/didClose in 102µs
+
+11:15:06.314 [debug] handled notification client -> server textDocument/didOpen in 1ms
+
+11:16:00.578 [debug] handled notification client -> server textDocument/didChange in 8ms
+
+11:16:01.738 [debug] handled notification client -> server textDocument/didSave in 3ms
+
+11:16:02.839 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 1004ms
+
+11:16:02.839 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 307µs
+
+11:16:02.839 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 103µs
+
+11:16:02.839 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 102µs
+
+11:16:02.840 [debug] handled notification client -> server textDocument/didChange in 410µs
+
+11:16:03.574 [debug] handled notification client -> server textDocument/didSave in 819µs
+
+11:16:04.661 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 1005ms
+
+11:16:08.581 [debug] handled notification client -> server textDocument/didChange in 1ms
+
+11:16:08.689 [debug] handled notification client -> server textDocument/didChange in 716µs
+
+11:16:10.795 [debug] handled notification client -> server textDocument/didChange in 1ms
+
+11:16:12.922 [debug] handled notification client -> server textDocument/didChange in 1ms
+
+11:16:14.958 [debug] handled notification client -> server textDocument/didChange in 614µs
+
+11:16:15.094 [debug] handled notification client -> server textDocument/didChange in 819µs
+
+11:16:17.032 [debug] handled notification client -> server textDocument/didChange in 410µs
+
+11:16:17.049 [debug] handled notification client -> server textDocument/didSave in 717µs
+
+11:16:18.143 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 1007ms
+
+11:16:34.339 [debug] handled notification client -> server textDocument/didChange in 409µs
+
+11:16:34.493 [debug] handled notification client -> server textDocument/didChange in 717µs
+
+11:16:37.901 [debug] handled notification client -> server textDocument/didChange in 716µs
+
+11:16:38.058 [debug] handled notification client -> server textDocument/didChange in 717µs
+
+11:16:38.261 [debug] handled notification client -> server textDocument/didChange in 410µs
+
+11:16:39.458 [debug] sent notification server -> client window/logMessage
+
+11:16:39.458 [warning] Failed to run completion request: ** (MatchError) no match of right hand side value: :timeout
+    (next_ls 0.23.3) lib/next_ls.ex:631: NextLS.handle_request/2
+    (gen_lsp 0.10.0) lib/gen_lsp.ex:350: anonymous fn/2 in GenLSP.loop/3
+    (telemetry 1.2.1) /Users/runner/work/next-ls/next-ls/deps/telemetry/src/telemetry.erl:321: :telemetry.span/3
+    (gen_lsp 0.10.0) lib/gen_lsp.ex:349: anonymous fn/7 in GenLSP.loop/3
+    (gen_lsp 0.10.0) lib/gen_lsp.ex:553: GenLSP.attempt/4
+    (stdlib 6.2) proc_lib.erl:329: :proc_lib.init_p_do_apply/3
+
+
+11:16:39.699 id=2 [debug] handled request client -> server textDocument/completion in 1435ms
+
+11:16:39.718 [debug] handled notification client -> server textDocument/didChange in 18ms
+
+11:16:39.735 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 17ms
+
+11:16:42.898 [debug] handled notification client -> server textDocument/didChange in 512µs
+
+11:16:42.914 [debug] handled notification client -> server textDocument/didSave in 1ms
+
+11:16:44.015 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 1004ms
+
+11:17:04.189 [debug] handled notification client -> server textDocument/didChange in 614µs
+
+11:17:04.337 [debug] handled notification client -> server textDocument/didChange in 717µs
+
+11:17:08.452 [debug] handled notification client -> server textDocument/didChange in 922µs
+
+11:17:08.591 [debug] handled notification client -> server textDocument/didChange in 1ms
+
+11:17:13.089 [debug] handled notification client -> server textDocument/didChange in 512µs
+
+11:17:20.841 [debug] handled notification client -> server textDocument/didChange in 1ms
+
+11:17:20.980 [debug] handled notification client -> server textDocument/didChange in 921µs
+
+11:17:24.919 [debug] handled notification client -> server textDocument/didChange in 512µs
+
+11:17:25.059 [debug] handled notification client -> server textDocument/didChange in 409µs
+
+11:17:26.687 [debug] handled notification client -> server textDocument/didChange in 409µs
+
+11:17:26.703 [debug] handled notification client -> server textDocument/didSave in 410µs
+
+11:17:27.813 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 1013ms
+
+11:17:35.971 [debug] handled notification client -> server textDocument/didChange in 512µs
+
+11:17:37.328 [debug] handled notification client -> server textDocument/didSave in 717µs
+
+11:17:38.428 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 1009ms
+
+11:17:40.893 [debug] handled notification client -> server textDocument/didChange in 819µs
+
+11:17:41.046 [debug] handled notification client -> server textDocument/didChange in 512µs
+
+11:17:44.219 [debug] handled notification client -> server textDocument/didChange in 614µs
+
+11:17:48.822 [debug] handled notification client -> server textDocument/didChange in 512µs
+
+11:17:48.966 [debug] handled notification client -> server textDocument/didChange in 1ms
+
+11:17:50.473 [debug] handled notification client -> server textDocument/didChange in 410µs
+
+11:17:50.489 [debug] handled notification client -> server textDocument/didSave in 512µs
+
+11:17:51.585 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 1008ms
+
+11:18:15.655 [debug] handled notification client -> server textDocument/didChange in 922µs
+
+11:18:15.799 [debug] handled notification client -> server textDocument/didChange in 717µs
+
+11:18:19.235 [debug] handled notification client -> server textDocument/didChange in 615µs
+
+11:18:22.456 [debug] handled notification client -> server textDocument/didChange in 1ms
+
+11:18:22.606 [debug] handled notification client -> server textDocument/didChange in 615µs
+
+11:18:24.130 [debug] handled notification client -> server textDocument/didChange in 410µs
+
+11:18:24.150 [debug] handled notification client -> server textDocument/didSave in 614µs
+
+11:18:25.252 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 1010ms
+
+11:18:43.666 [debug] handled notification client -> server textDocument/didChange in 410µs
+
+11:18:43.813 [debug] handled notification client -> server textDocument/didChange in 410µs
+
+11:18:45.977 [debug] handled notification client -> server textDocument/didChange in 819µs
+
+11:18:50.363 [debug] handled notification client -> server textDocument/didChange in 921µs
+
+11:18:50.497 [debug] handled notification client -> server textDocument/didChange in 1ms
+
+11:18:51.980 [debug] handled notification client -> server textDocument/didChange in 922µs
+
+11:18:51.996 [debug] handled notification client -> server textDocument/didSave in 1ms
+
+11:18:53.096 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 1012ms
+
+11:19:59.672 [debug] handled notification client -> server textDocument/didClose in 205µs

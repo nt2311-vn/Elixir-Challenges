@@ -26,19 +26,13 @@ defmodule Naive.Trader do
     Phoenix.PubSub.subscribe(Streamer.PubSub, "TRADE_EVENTS:#{symbol}")
 
     tick_size = fetch_tick_size(symbol)
-    Logger.info("Tick size #{tick_size}")
 
-    {:ok, %State{symbol: symbol, profit_interval: profit_interval, tick_size: tick_size}}
-  end
-
-  defp fetch_tick_size(symbol) do
-    Binance.get_exchange_info()
-    |> elem(1)
-    |> Map.get(:symbols)
-    |> Enum.find(&(&1["symbol"] == symbol))
-    |> Map.get("filters")
-    |> Enum.find(&(&1["filterType"] == "PRICE_FILTER"))
-    |> Map.get("tickSize")
+    {:ok,
+     %State{
+       symbol: symbol,
+       profit_interval: profit_interval,
+       tick_size: tick_size
+     }}
   end
 
   def handle_info(%TradeEvent{price: price}, %State{symbol: symbol, buy_order: nil} = state) do
@@ -53,7 +47,10 @@ defmodule Naive.Trader do
   end
 
   def handle_info(
-        %TradeEvent{buyer_order_id: order_id, quantity: quantity},
+        %TradeEvent{
+          buyer_order_id: order_id,
+          quantity: quantity
+        },
         %State{
           symbol: symbol,
           buy_order: %Binance.OrderResponse{
@@ -79,7 +76,10 @@ defmodule Naive.Trader do
   end
 
   def handle_info(
-        %TradeEvent{seller_order_id: order_id, quantity: quantity},
+        %TradeEvent{
+          seller_order_id: order_id,
+          quantity: quantity
+        },
         %State{
           sell_order: %Binance.OrderResponse{
             order_id: order_id,
@@ -97,12 +97,32 @@ defmodule Naive.Trader do
 
   defp calculate_sell_price(buy_price, profit_interval, tick_size) do
     fee = "1.001"
-
     original_price = D.mult(buy_price, fee)
 
-    net_target_price = D.mult(original_price, D.add("1.0", profit_interval))
+    net_target_price =
+      D.mult(
+        original_price,
+        D.add("1.0", profit_interval)
+      )
+
     gross_target_price = D.mult(net_target_price, fee)
 
-    D.to_string(D.mult(D.div_int(gross_target_price, tick_size), tick_size), :normal)
+    D.to_string(
+      D.mult(
+        D.div_int(gross_target_price, tick_size),
+        tick_size
+      ),
+      :normal
+    )
+  end
+
+  defp fetch_tick_size(symbol) do
+    Binance.get_exchange_info()
+    |> elem(1)
+    |> Map.get(:symbols)
+    |> Enum.find(&(&1["symbol"] == symbol))
+    |> Map.get("filters")
+    |> Enum.find(&(&1["filterType"] == "PRICE_FILTER"))
+    |> Map.get("tickSize")
   end
 end
