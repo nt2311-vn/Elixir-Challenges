@@ -15,7 +15,7 @@ defmodule BinanceMock do
   end
 
   defmodule OrderBook do
-    defstruct buy_side: [], sell_side: [], historicall: []
+    defstruct buy_side: [], sell_side: [], historical: []
   end
 
   def start_link(_args) do
@@ -168,5 +168,52 @@ defmodule BinanceMock do
 
   def handle_call(:generate_id, _from, %State{fake_order_id: id} = state) do
     {:reply, id + 1, %{state | fake_order_id: id + 1}}
+  end
+
+  def get_order(symbol, time, order_id) do
+    GenServer.call(
+      __MODULE__,
+      {:get_order, symbol, time, order_id}
+    )
+  end
+
+  def handle_call(
+        {:get_order, symbol, time, order_id},
+        _from,
+        %State{order_books: order_books} = state
+      ) do
+    order_book = Map.get(order_books, :"#{symbol}", %OrderBook{})
+
+    result =
+      (order_book.buy_side ++ order_book.sell_side ++ order_book.historical)
+      |> Enum.find(&(&1.symbol == symbol and &1.time == time and &1.order_id == order_id))
+
+    {:reply, {:ok, result}, state}
+  end
+
+  def handle_info(
+        %TradeEvent{} = trade_event,
+        %{order_books: order_books} = state
+      ) do
+    order_book =
+      Map.get(
+        order_books,
+        :"#{trade_event.symbol}",
+        %OrderBook{}
+      )
+
+    filled_buy_orders =
+      order_book.buy_side
+      |> Enum.take_while(&D.lt?(trade_event.price, &1.price))
+      |> Enum.map(&Map.replace!(&1, :status, "FILLED"))
+
+    filled_sell_orders =
+      order_book.sell_side
+      |> Enum.take_while(&D.gt?(trade_event.price, &1.price))
+      |> Enum.map(&Map.replace!(&1, :status, "FILLED"))
+
+    (filled_buy_orders ++ filled_sell_orders)
+    |> Enum.map(&convert_order_to_event(&1, trade_event.event_time))
+    |> Enum.each(&broadcast_trade_event/1)
   end
 end
