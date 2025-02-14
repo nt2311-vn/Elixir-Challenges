@@ -18770,3 +18770,5 @@
 10:15:05.330 [debug] sent notification server -> client window/logMessage
 
 10:15:05.333 [debug] handled notification client -> server textDocument/didOpen in 3ms
+
+10:15:33.135 id=2 [debug] handled request client -> server shutdown in 1ms
