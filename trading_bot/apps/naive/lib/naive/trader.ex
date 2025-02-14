@@ -1,24 +1,12 @@
 defmodule Naive.Trader do
   use GenServer
-  require Logger
-  alias Streamer.Binance.TradeEvent
-  alias Decimal, as: D
 
-  defmodule Streamer.Binance.TradeEvent do
-    defstruct [
-      :event_type,
-      :event_time,
-      :symbol,
-      :trade_id,
-      :price,
-      :quantity,
-      :buyer_order_id,
-      :seller_order_id,
-      :trade_time,
-      :buyer_market_maker,
-      :ignore
-    ]
-  end
+  alias Decimal, as: D
+  alias Streamer.Binance.TradeEvent
+
+  require Logger
+
+  @binance_client Application.compile_env(:naive, :binance_client)
 
   defmodule State do
     @enforce_keys [:symbol, :profit_interval, :tick_size]
@@ -39,7 +27,11 @@ defmodule Naive.Trader do
     symbol = String.upcase(symbol)
 
     Logger.info("Initializing new trader for #{symbol}")
-    Phoenix.PubSub.subscribe(Streamer.PubSub, "TRADE_EVENTS:#{symbol}")
+
+    Phoenix.PubSub.subscribe(
+      Streamer.PubSub,
+      "TRADE_EVENTS:#{symbol}"
+    )
 
     tick_size = fetch_tick_size(symbol)
 
@@ -51,13 +43,16 @@ defmodule Naive.Trader do
      }}
   end
 
-  def handle_info(%TradeEvent{price: price}, %State{symbol: symbol, buy_order: nil} = state) do
-    quantity = "3"
+  def handle_info(
+        %TradeEvent{price: price},
+        %State{symbol: symbol, buy_order: nil} = state
+      ) do
+    quantity = "100"
 
     Logger.info("Placing BUY order for #{symbol} @ #{price}, quantity: #{quantity}")
 
     {:ok, %Binance.OrderResponse{} = order} =
-      Binance.order_limit_buy(symbol, quantity, price, "GTC")
+      @binance_client.order_limit_buy(symbol, quantity, price, "GTC")
 
     {:noreply, %{state | buy_order: order}}
   end
@@ -86,7 +81,7 @@ defmodule Naive.Trader do
     )
 
     {:ok, %Binance.OrderResponse{} = order} =
-      Binance.order_limit_sell(symbol, quantity, sell_price, "GTC")
+      @binance_client.order_limit_sell(symbol, quantity, sell_price, "GTC")
 
     {:noreply, %{state | sell_order: order}}
   end
@@ -133,7 +128,7 @@ defmodule Naive.Trader do
   end
 
   defp fetch_tick_size(symbol) do
-    Binance.get_exchange_info()
+    @binance_client.get_exchange_info()
     |> elem(1)
     |> Map.get(:symbols)
     |> Enum.find(&(&1["symbol"] == symbol))

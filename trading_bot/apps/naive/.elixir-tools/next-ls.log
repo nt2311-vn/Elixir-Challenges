@@ -29030,3 +29030,21 @@
 12:00:50.709 id=316 [debug] handled request client -> server textDocument/hover in 1000ms
 
 12:31:57.518 id=317 [debug] handled request client -> server shutdown in 24ms
+
+15:17:08.093 [info] Loading 76 CA(s) from :otp store
+
+15:17:08.452 id=1 [debug] handled request client -> server initialize in 177ms
+
+15:17:08.468 [debug] sent notification server -> client window/logMessage
+
+15:17:08.483 [debug] NextLS v0.23.3 has initialized!
+
+15:17:08.483 [debug] sent notification server -> client window/logMessage
+
+15:17:08.483 [debug] Log file located at d:/Work/Project/Git/Elixir/Challenges/trading_bot/apps/naive/.elixir-tools/next-ls.log
+
+15:17:08.483 id=2 [debug] sent request server -> client client/registerCapability
+
+15:17:08.483 [debug] sent notification server -> client window/logMessage
+
+15:17:08.483 [info] [extension] Credo initializing with options %NextLS.InitOpts.Extensions.Credo{enable: true, cli_options: []}
