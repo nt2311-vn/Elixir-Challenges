@@ -1,12 +1,18 @@
 defmodule Streamer.Binance do
-  require Logger
   use WebSockex
+
+  require Logger
+
   @stream_endpoint "wss://stream.binance.com:9443/ws/"
 
   def start_link(symbol) do
     symbol = String.downcase(symbol)
 
-    WebSockex.start_link("#{@stream_endpoint}#{symbol}@trade", __MODULE__, %{})
+    WebSockex.start_link(
+      "#{@stream_endpoint}#{symbol}@trade",
+      __MODULE__,
+      nil
+    )
   end
 
   def handle_frame({_type, msg}, state) do
@@ -18,7 +24,7 @@ defmodule Streamer.Binance do
     {:ok, state}
   end
 
-  def process_event(%{"e" => "trade"} = event) do
+  defp process_event(%{"e" => "trade"} = event) do
     trade_event = %Streamer.Binance.TradeEvent{
       :event_type => event["e"],
       :event_time => event["E"],
@@ -29,15 +35,18 @@ defmodule Streamer.Binance do
       :buyer_order_id => event["b"],
       :seller_order_id => event["a"],
       :trade_time => event["T"],
-      :buyer_market_maker => event["m"],
-      :ignore => event["M"]
+      :buyer_market_maker => event["m"]
     }
 
     Logger.debug(
       "Trade event received " <>
-        "#{trade_event.symbol} type:#{trade_event.event_type} price:@#{trade_event.price} vol:#{trade_event.quantity} market_maker:#{trade_event.buyer_market_maker}"
+        "#{trade_event.symbol}@#{trade_event.price}"
     )
 
-    Phoenix.PubSub.broadcast(Streamer.PubSub, "TRADE_EVENTS:#{trade_event.symbol}", trade_event)
+    Phoenix.PubSub.broadcast(
+      Streamer.PubSub,
+      "TRADE_EVENTS:#{trade_event.symbol}",
+      trade_event
+    )
   end
 end
