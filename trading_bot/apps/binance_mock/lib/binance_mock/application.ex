@@ -8,8 +8,7 @@ defmodule BinanceMock.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      # Starts a worker by calling: BinanceMock.Worker.start_link(arg)
-      # {BinanceMock.Worker, arg}
+      {BinanceMock, []}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
