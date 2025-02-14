@@ -75,4 +75,24 @@ defmodule BinanceMock do
       }
     }
   end
+
+  defp subscribe_to_topic(symbol, subscriptions) do
+    symbol = String.upcase(symbol)
+    stream_name = "TRADE_EVENTS:#{symbol}"
+
+    case Enum.member?(subscriptions, symbol) do
+      false ->
+        Logger.debug("BinaneMock subscribing to #{stream_name}")
+
+        Phoenix.PubSub.subscribe(
+          Streamer.PubSub,
+          stream_name
+        )
+
+        [symbol | subscriptions]
+
+      _ ->
+        subscriptions
+    end
+  end
 end
