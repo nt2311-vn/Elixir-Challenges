@@ -32914,3 +32914,11 @@
 17:00:35.619 [debug] sent notification server -> client window/logMessage
 
 17:00:35.619 [debug] handled notification client -> server textDocument/didOpen in 6ms
+
+17:02:12.183 id=2 [debug] handled request client -> server textDocument/hover in 1016ms
+
+17:02:13.902 id=3 [debug] handled request client -> server textDocument/hover in 1002ms
+
+17:02:54.173 [debug] handled notification client -> server textDocument/didClose in 3ms
+
+17:02:55.048 id=4 [debug] handled request client -> server shutdown in 1ms
