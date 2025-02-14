@@ -1,19 +1,3 @@
-defmodule Streamer.Binance.TradeEvent do
-  defstruct [
-    :event_type,
-    :event_time,
-    :symbol,
-    :trade_id,
-    :price,
-    :quantity,
-    :buyer_order_id,
-    :seller_order_id,
-    :trade_time,
-    :buyer_market_maker,
-    :ignore
-  ]
-end
-
 defmodule BinanceMock do
   use GenServer
 
@@ -77,7 +61,11 @@ defmodule BinanceMock do
     }
   end
 
-  def handle_call(:generate_id, _from, %State{fake_order_id: id} = state) do
+  def handle_call(
+        :generate_id,
+        _from,
+        %State{fake_order_id: id} = state
+      ) do
     {:reply, id + 1, %{state | fake_order_id: id + 1}}
   end
 
@@ -86,11 +74,22 @@ defmodule BinanceMock do
         _from,
         %State{order_books: order_books} = state
       ) do
-    order_book = Map.get(order_books, :"#{symbol}", %OrderBook{})
+    order_book =
+      Map.get(
+        order_books,
+        :"#{symbol}",
+        %OrderBook{}
+      )
 
     result =
-      (order_book.buy_side ++ order_book.sell_side ++ order_book.historical)
-      |> Enum.find(&(&1.symbol == symbol and &1.time == time and &1.order_id == order_id))
+      (order_book.buy_side ++
+         order_book.sell_side ++
+         order_book.historical)
+      |> Enum.find(
+        &(&1.symbol == symbol and
+            &1.time == time and
+            &1.order_id == order_id)
+      )
 
     {:reply, {:ok, result}, state}
   end
@@ -120,8 +119,13 @@ defmodule BinanceMock do
     |> Enum.map(&convert_order_to_event(&1, trade_event.event_time))
     |> Enum.each(&broadcast_trade_event/1)
 
-    remaining_sell_orders = order_book.sell_side |> Enum.drop(length(filled_sell_orders))
-    remaining_buy_orders = order_book.buy_side |> Enum.drop(length(filled_buy_orders))
+    remaining_buy_orders =
+      order_book.buy_side
+      |> Enum.drop(length(filled_buy_orders))
+
+    remaining_sell_orders =
+      order_book.sell_side
+      |> Enum.drop(length(filled_sell_orders))
 
     order_books =
       Map.replace!(
@@ -130,7 +134,10 @@ defmodule BinanceMock do
         %{
           buy_side: remaining_buy_orders,
           sell_side: remaining_sell_orders,
-          historical: filled_buy_orders ++ filled_sell_orders ++ order_books.historical
+          historical:
+            filled_buy_orders ++
+              filled_sell_orders ++
+              order_book.historical
         }
       )
 
@@ -161,7 +168,7 @@ defmodule BinanceMock do
 
     case Enum.member?(subscriptions, symbol) do
       false ->
-        Logger.debug("BinaneMock subscribing to #{stream_name}")
+        Logger.debug("BinanceMock subscribing to #{stream_name}")
 
         Phoenix.PubSub.subscribe(
           Streamer.PubSub,
@@ -211,7 +218,7 @@ defmodule BinanceMock do
               is_binary(quantity) and
               is_binary(price) and
               (side == "BUY" or side == "SELL") do
-    current_time_stamp = :os.system_time(:millisecond)
+    current_timestamp = :os.system_time(:millisecond)
     order_id = GenServer.call(__MODULE__, :generate_id)
     client_order_id = :crypto.hash(:md5, "#{order_id}") |> Base.encode16()
 
@@ -229,8 +236,8 @@ defmodule BinanceMock do
       side: side,
       stop_price: "0.00000000",
       iceberg_qty: "0.00000000",
-      time: current_time_stamp,
-      update_time: current_time_stamp,
+      time: current_timestamp,
+      update_time: current_timestamp,
       is_working: true
     })
   end
