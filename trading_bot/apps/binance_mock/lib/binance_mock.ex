@@ -215,5 +215,21 @@ defmodule BinanceMock do
     (filled_buy_orders ++ filled_sell_orders)
     |> Enum.map(&convert_order_to_event(&1, trade_event.event_time))
     |> Enum.each(&broadcast_trade_event/1)
+
+    remaining_sell_orders = order_book.sell_side |> Enum.drop(length(filled_sell_orders))
+    remaining_buy_orders = order_book.buy_side |> Enum.drop(length(filled_buy_orders))
+
+    order_books =
+      Map.replace!(
+        order_books,
+        :"#{trade_event.symbol}",
+        %{
+          buy_side: remaining_buy_orders,
+          sell_side: remaining_sell_orders,
+          historical: filled_buy_orders ++ filled_sell_orders ++ order_books.historical
+        }
+      )
+
+    {:noreply, %{state | order_books: order_books}}
   end
 end

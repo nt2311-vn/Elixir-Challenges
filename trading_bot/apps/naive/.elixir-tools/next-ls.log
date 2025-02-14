@@ -29028,3 +29028,5 @@
 12:00:49.285 id=315 [debug] handled request client -> server textDocument/hover in 1005ms
 
 12:00:50.709 id=316 [debug] handled request client -> server textDocument/hover in 1000ms
+
+12:31:57.518 id=317 [debug] handled request client -> server shutdown in 24ms
