@@ -23,13 +23,12 @@ defmodule Naive.Trader do
     symbol = String.upcase(symbol)
 
     Logger.info("Initializing new trader for #{symbol}")
+    Phoenix.PubSub.subscribe(Streamer.PubSub, "TRADE_EVENTS:#{symbol}")
 
     tick_size = fetch_tick_size(symbol)
     Logger.info("Tick size #{tick_size}")
 
     {:ok, %State{symbol: symbol, profit_interval: profit_interval, tick_size: tick_size}}
-
-    Phoenix.PubSub.subscribe(Streamer.PubSub, "TRADE_EVENTS:#{symbol}")
   end
 
   defp fetch_tick_size(symbol) do
