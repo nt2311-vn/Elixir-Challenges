@@ -95,4 +95,35 @@ defmodule BinanceMock do
         subscriptions
     end
   end
+
+  defp add_order(
+         %Binance.Order{symbol: symbol} = order,
+         order_books
+       ) do
+    order_book =
+      Map.get(
+        order_books,
+        :"#{symbol}",
+        %OrderBook{}
+      )
+
+    order_book =
+      if order.side == "SELL" do
+        Map.replace!(
+          order_book,
+          :sell_side,
+          [order | order_book.sell_side]
+          |> Enum.sort(&D.lt?(&1.price, &2.price))
+        )
+      else
+        Map.replace!(
+          order_book,
+          :buy_side,
+          [order | order_book.buy_side]
+          |> Enum.sort(&D.gt?(&1.price, &2.price))
+        )
+      end
+
+    Map.put(order_books, :"#{symbol}", order_book)
+  end
 end
