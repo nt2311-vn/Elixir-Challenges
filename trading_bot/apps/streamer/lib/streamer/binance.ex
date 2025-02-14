@@ -38,6 +38,6 @@ defmodule Streamer.Binance do
         "#{trade_event.symbol} type:#{trade_event.event_type} price:@#{trade_event.price} vol:#{trade_event.quantity} market_maker:#{trade_event.buyer_market_maker}"
     )
 
-    Naive.send_event(trade_event)
+    Phoenix.PubSub.broadcast(Streamer.PubSub, "TRADE_EVENTS:#{trade_event.symbol}", trade_event)
   end
 end
