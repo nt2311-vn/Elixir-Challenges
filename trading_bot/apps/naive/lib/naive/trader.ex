@@ -49,7 +49,6 @@ defmodule Naive.Trader do
 
     new_state = %{state | buy_order: order}
     Naive.Leader.notify(:trader_state_updated, new_state)
-
     {:noreply, new_state}
   end
 
@@ -81,7 +80,6 @@ defmodule Naive.Trader do
 
     new_state = %{state | sell_order: order}
     Naive.Leader.notify(:trader_state_updated, new_state)
-
     {:noreply, new_state}
   end
 
