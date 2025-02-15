@@ -84,10 +84,20 @@ defmodule Naive.Leader do
   end
 
   def handle_call(
-    {:update_trade_state, new_trader_state},
-    {trader_pid, _},
-    %{traders: traders} = state
-  ) do
+        {:update_trade_state, new_trader_state},
+        {trader_pid, _},
+        %{traders: traders} = state
+      ) do
+    case Enum.find_index(traders, &(&1.pid == trader_pid)) do
+      nil ->
+        Logger.warning("Tried to update the state of trader that leader is not aware of")
+        {:reply, :ok, state}
 
+      index ->
+        old_trader_data = Enum.at(traders, index)
+        new_trader_data = %{old_trader_data | :state => new_trader_state}
+
+        {:reply, :ok, %{state | :traders => List.replace_at(traders, index, new_trader_data)}}
+    end
   end
 end
