@@ -82,4 +82,12 @@ defmodule Naive.Leader do
 
     %TraderData{pid: pid, ref: ref, state: state}
   end
+
+  def handle_call(
+    {:update_trade_state, new_trader_state},
+    {trader_pid, _},
+    %{traders: traders} = state
+  ) do
+
+  end
 end
