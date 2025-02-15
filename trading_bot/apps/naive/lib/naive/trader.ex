@@ -47,7 +47,10 @@ defmodule Naive.Trader do
     {:ok, %Binance.OrderResponse{} = order} =
       @binance_client.order_limit_buy(symbol, quantity, price, "GTC")
 
-    {:noreply, %{state | buy_order: order}}
+    new_state = %{state | buy_order: order}
+    Naive.Leader.notify(:trader_state_updated, new_state)
+
+    {:noreply, new_state}
   end
 
   def handle_info(
@@ -76,7 +79,10 @@ defmodule Naive.Trader do
     {:ok, %Binance.OrderResponse{} = order} =
       @binance_client.order_limit_sell(symbol, quantity, sell_price, "GTC")
 
-    {:noreply, %{state | sell_order: order}}
+    new_state = %{state | sell_order: order}
+    Naive.Leader.notify(:trader_state_updated, new_state)
+
+    {:noreply, new_state}
   end
 
   def handle_info(
