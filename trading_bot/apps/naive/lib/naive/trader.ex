@@ -1,5 +1,5 @@
 defmodule Naive.Trader do
-  use GenServer
+  use GenServer, restart: :temporary
 
   alias Decimal, as: D
   alias Streamer.Binance.TradeEvent
@@ -19,11 +19,11 @@ defmodule Naive.Trader do
     ]
   end
 
-  def start_link(%{} = args) do
-    GenServer.start_link(__MODULE__, args, name: :trader)
+  def start_link(%State{} = state) do
+    GenServer.start_link(__MODULE__, state)
   end
 
-  def init(%{symbol: symbol, profit_interval: profit_interval}) do
+  def init(%State{symbol: symbol} = state) do
     symbol = String.upcase(symbol)
 
     Logger.info("Initializing new trader for #{symbol}")
@@ -33,14 +33,7 @@ defmodule Naive.Trader do
       "TRADE_EVENTS:#{symbol}"
     )
 
-    tick_size = fetch_tick_size(symbol)
-
-    {:ok,
-     %State{
-       symbol: symbol,
-       profit_interval: profit_interval,
-       tick_size: tick_size
-     }}
+    {:ok, state}
   end
 
   def handle_info(
