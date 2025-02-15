@@ -9,7 +9,12 @@ defmodule Naive.Trader do
   @binance_client Application.compile_env(:naive, :binance_client)
 
   defmodule State do
-    @enforce_keys [:symbol, :buy_down_interval, :profit_interval, :tick_size]
+    @enforce_keys [
+      :symbol,
+      :buy_down_interval,
+      :profit_interval,
+      :tick_size
+    ]
     defstruct [
       :symbol,
       :buy_order,
@@ -47,7 +52,9 @@ defmodule Naive.Trader do
         } = state
       ) do
     price = calculate_buy_price(price, buy_down_interval, tick_size)
+
     quantity = "100"
+
     Logger.info("Placing BUY order for #{symbol} @ #{price}, quantity: #{quantity}")
 
     {:ok, %Binance.OrderResponse{} = order} =
@@ -131,6 +138,7 @@ defmodule Naive.Trader do
   end
 
   defp calculate_buy_price(current_price, buy_down_interval, tick_size) do
+    # not necessarily legal price
     exact_buy_price =
       D.sub(
         current_price,
