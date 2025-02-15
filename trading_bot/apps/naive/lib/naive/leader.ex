@@ -100,4 +100,25 @@ defmodule Naive.Leader do
         {:reply, :ok, %{state | :traders => List.replace_at(traders, index, new_trader_data)}}
     end
   end
+
+  def handle_info(
+        {:DOWN, _ref, :process, trader_pid, :normal},
+        %{traders: traders, symbol: symbol, settings: settings} = state
+      ) do
+    Logger.info("#{symbol} trader finished trade - restarting")
+
+    case Enum.find_index(traders, &(&1.pid == trader_pid)) do
+      nil ->
+        Logger.warning(
+          "Tried to restart finished #{symbol} " <> "trader that leader is not aware of"
+        )
+
+        {:noreply, state}
+
+      index ->
+        new_trader_data = start_new_trader(fresh_trader_state(settings))
+        new_traders = List.replace_at(traders, index, new_trader_data)
+        {:noreply, %{state | traders: new_traders}}
+    end
+  end
 end
