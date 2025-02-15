@@ -9,7 +9,7 @@ defmodule Naive.Trader do
   @binance_client Application.compile_env(:naive, :binance_client)
 
   defmodule State do
-    @enforce_keys [:symbol, :profit_interval, :tick_size]
+    @enforce_keys [:symbol, :buy_down_interval, :profit_interval, :tick_size]
     defstruct [
       :symbol,
       :buy_order,
@@ -46,13 +46,12 @@ defmodule Naive.Trader do
           tick_size: tick_size
         } = state
       ) do
+    price = calculate_buy_price(price, buy_down_interval, tick_size)
     quantity = "100"
     Logger.info("Placing BUY order for #{symbol} @ #{price}, quantity: #{quantity}")
 
     {:ok, %Binance.OrderResponse{} = order} =
       @binance_client.order_limit_buy(symbol, quantity, price, "GTC")
-
-    price = calculate_buy_price(price, buy_down_interval, tick_size)
 
     new_state = %{state | buy_order: order}
     Naive.Leader.notify(:trader_state_updated, new_state)
