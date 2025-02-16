@@ -122,15 +122,18 @@ defmodule Naive.Leader do
   end
 
   defp fetch_symbol_settings(symbol) do
-    tick_size = fetch_tick_size(symbol)
+    symbol_filters = fetch_symbol_filters(symbol)
 
-    %{
-      symbol: symbol,
-      chunks: 1,
-      buy_down_interval: "0.0001",
-      profit_interval: "-0.0012",
-      tick_size: tick_size
-    }
+    Map.merge(
+      %{
+        symbol: symbol,
+        chunks: 1,
+        budget: 20,
+        buy_down_interval: "0.0001",
+        profit_interval: "0.0012"
+      },
+      symbol_filters
+    )
   end
 
   defp fetch_tick_size(symbol) do
