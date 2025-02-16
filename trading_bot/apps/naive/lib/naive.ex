@@ -2,7 +2,6 @@ defmodule Naive do
   @moduledoc """
   Documentation for `Naive`.
   """
-
   def start_trading(symbol) do
     symbol = String.upcase(symbol)
 
