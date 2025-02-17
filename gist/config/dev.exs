@@ -3,7 +3,7 @@ import Config
 # Configure your database
 config :gist, Gist.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "123$%^",
   hostname: "localhost",
   database: "gist_dev",
   stacktrace: true,
