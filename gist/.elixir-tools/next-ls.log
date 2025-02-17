@@ -63,3 +63,5 @@
 15:29:32.815 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 62ms
 
 15:30:32.578 id=2 [debug] handled request client -> server shutdown in 12ms
+
+15:43:46.749 [info] Loading 76 CA(s) from :otp store
