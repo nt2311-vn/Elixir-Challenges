@@ -567,3 +567,42 @@
 16:27:49.225 [debug] handled notification client -> server textDocument/didChange in 409µs
 
 16:27:49.283 [debug] handled notification client -> server $/cancelRequest in 55ms
+
+16:27:50.292 [debug] sent notification server -> client window/logMessage
+
+16:27:50.292 [warning] Failed to run completion request: ** (MatchError) no match of right hand side value: :timeout
+    (next_ls 0.23.3) lib/next_ls.ex:631: NextLS.handle_request/2
+    (gen_lsp 0.10.0) lib/gen_lsp.ex:350: anonymous fn/2 in GenLSP.loop/3
+    (telemetry 1.2.1) /Users/runner/work/next-ls/next-ls/deps/telemetry/src/telemetry.erl:321: :telemetry.span/3
+    (gen_lsp 0.10.0) lib/gen_lsp.ex:349: anonymous fn/7 in GenLSP.loop/3
+    (gen_lsp 0.10.0) lib/gen_lsp.ex:553: GenLSP.attempt/4
+    (stdlib 6.2) proc_lib.erl:329: :proc_lib.init_p_do_apply/3
+
+
+16:27:50.292 id=3 [debug] handled request client -> server textDocument/completion in 1009ms
+
+16:27:50.292 [debug] handled notification client -> server textDocument/didChange in 102µs
+
+16:27:50.292 [debug] handled notification client -> server textDocument/didChange in 103µs
+
+16:27:50.292 [debug] handled notification client -> server textDocument/didChange in 102µs
+
+16:27:50.292 [debug] handled notification client -> server textDocument/didChange in 0µs
+
+16:27:50.292 [debug] handled notification client -> server textDocument/didChange in 103µs
+
+16:27:50.292 [debug] handled notification client -> server textDocument/didChange in 102µs
+
+16:27:50.292 [debug] handled notification client -> server textDocument/didChange in 102µs
+
+16:27:50.292 [debug] handled notification client -> server textDocument/didChange in 103µs
+
+16:27:50.292 [debug] handled notification client -> server textDocument/didChange in 0µs
+
+16:27:50.308 [debug] handled notification client -> server textDocument/didSave in 28ms
+
+16:27:50.406 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 84ms
+
+16:27:50.407 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 307µs
+
+16:27:50.407 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 205µs
