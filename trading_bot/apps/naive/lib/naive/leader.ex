@@ -1,8 +1,8 @@
 defmodule Naive.Leader do
   use GenServer
 
-  alias Naive.Trader
   alias Decimal, as: D
+  alias Naive.Trader
 
   require Logger
 
@@ -119,7 +119,10 @@ defmodule Naive.Leader do
   end
 
   defp fresh_trader_state(settings) do
-    %{struct(Trader.State, settings) | budget: D.div(settings.budget, settings.chunks)}
+    %{
+      struct(Trader.State, settings)
+      | budget: D.div(settings.budget, settings.chunks)
+    }
   end
 
   defp fetch_symbol_settings(symbol) do
@@ -130,8 +133,10 @@ defmodule Naive.Leader do
         symbol: symbol,
         chunks: 1,
         budget: 20,
+        # -0.01% for quick testing
         buy_down_interval: "0.0001",
-        profit_interval: "0.0012"
+        # -0.12% for quick testing
+        profit_interval: "-0.0012"
       },
       symbol_filters
     )
@@ -146,12 +151,19 @@ defmodule Naive.Leader do
       |> Map.get("filters")
 
     tick_size =
-      symbol_filters |> Enum.find(& &1["filterType" == "PRICE_FILTER"]) |> Map.get("tickSize")
+      symbol_filters
+      |> Enum.find(&(&1["filterType"] == "PRICE_FILTER"))
+      |> Map.get("tickSize")
 
     step_size =
-      symbol_filters |> Enum.find(& &1["filterType" == "LOT_SIZE"]) |> Map.get("stepSize")
+      symbol_filters
+      |> Enum.find(&(&1["filterType"] == "LOT_SIZE"))
+      |> Map.get("stepSize")
 
-    %{tick_size: tick_size, step_size: step_size}
+    %{
+      tick_size: tick_size,
+      step_size: step_size
+    }
   end
 
   defp start_new_trader(%Trader.State{} = state) do
