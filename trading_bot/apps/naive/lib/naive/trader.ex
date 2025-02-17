@@ -58,7 +58,7 @@ defmodule Naive.Trader do
         } = state
       ) do
     price = calculate_buy_price(price, buy_down_interval, tick_size)
-    quantity = calculate_quantity(budget, price, step_siz)
+    quantity = calculate_quantity(budget, price, step_size)
 
     Logger.info("Placing BUY order for #{symbol} @ #{price}, quantity: #{quantity}")
 
@@ -163,7 +163,10 @@ defmodule Naive.Trader do
     exact_target_quantity = D.div(budget, price)
 
     D.to_string(
-      D.mult(D.div_int(exact_target_quantity, step_size)),
+      D.mult(
+        D.div_int(exact_target_quantity, step_size),
+        step_size
+      ),
       :normal
     )
   end
