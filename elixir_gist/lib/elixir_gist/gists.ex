@@ -49,8 +49,9 @@ defmodule ElixirGist.Gists do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_gist(attrs \\ %{}) do
-    %Gist{}
+  def create_gist(user, attrs \\ %{}) do
+    user
+    |> Ecto.build_assoc(:gists)
     |> Gist.changeset(attrs)
     |> Repo.insert()
   end
