@@ -18,7 +18,7 @@ import Config
 #
 
 config :logger,
-  level: :debug
+  level: :info
 
 config :naive,
   binance_client: BinanceMock
