@@ -72,16 +72,17 @@ defmodule Naive.Trader do
 
   def handle_info(
         %TradeEvent{
-          buyer_order_id: order_id,
-          quantity: quantity
+          buyer_order_id: order_id
         },
         %State{
           symbol: symbol,
-          buy_order: %Binance.OrderResponse{
-            price: buy_price,
-            order_id: order_id,
-            orig_qty: quantity
-          },
+          buy_order:
+            %Binance.OrderResponse{
+              price: buy_price,
+              order_id: order_id,
+              orig_qty: quantity,
+              transact_time: timestamp
+            } = buy_order,
           profit_interval: profit_interval,
           tick_size: tick_size
         } = state
