@@ -19,4 +19,18 @@ defmodule ElixirGist.GistsFixtures do
 
     gist
   end
+
+  @doc """
+  Generate a saved_gist.
+  """
+  def saved_gist_fixture(attrs \\ %{}) do
+    {:ok, saved_gist} =
+      attrs
+      |> Enum.into(%{
+
+      })
+      |> ElixirGist.Gists.create_saved_gist()
+
+    saved_gist
+  end
 end
