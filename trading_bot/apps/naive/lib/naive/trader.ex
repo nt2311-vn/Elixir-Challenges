@@ -11,17 +11,21 @@ defmodule Naive.Trader do
   defmodule State do
     @enforce_keys [
       :symbol,
+      :budget,
       :buy_down_interval,
       :profit_interval,
-      :tick_size
+      :tick_size,
+      :step_size
     ]
     defstruct [
       :symbol,
+      :budget,
       :buy_order,
       :sell_order,
       :buy_down_interval,
       :profit_interval,
-      :tick_size
+      :tick_size,
+      :step_size
     ]
   end
 
@@ -46,14 +50,15 @@ defmodule Naive.Trader do
         %TradeEvent{price: price},
         %State{
           symbol: symbol,
+          budget: budget,
           buy_order: nil,
           buy_down_interval: buy_down_interval,
-          tick_size: tick_size
+          tick_size: tick_size,
+          step_size: step_size
         } = state
       ) do
     price = calculate_buy_price(price, buy_down_interval, tick_size)
-
-    quantity = "100"
+    quantity = calculate_quantity(budget, price, step_size)
 
     Logger.info("Placing BUY order for #{symbol} @ #{price}, quantity: #{quantity}")
 
