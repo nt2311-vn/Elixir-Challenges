@@ -1,16 +1,21 @@
 defmodule Streamer.Binance do
-  require Logger
   use WebSockex
+
+  require Logger
 
   @stream_endpoint "wss://stream.binance.com:9443/ws/"
 
   def start_link(symbol) do
-    symbol = String.upcase(symbol)
+    symbol = String.downcase(symbol)
 
-    WebSockex.start_link("#{@stream_endpoint}#{symbol}@trade", __MODULE__, nil)
+    WebSockex.start_link(
+      "#{@stream_endpoint}#{symbol}@trade",
+      __MODULE__,
+      nil
+    )
   end
 
-  def handle_frame({type, msg}, state) do
+  def handle_frame({_type, msg}, state) do
     case Jason.decode(msg) do
       {:ok, event} -> process_event(event)
       {:error, _} -> Logger.error("Unable to parse msg: #{msg}")
@@ -35,12 +40,7 @@ defmodule Streamer.Binance do
 
     Logger.debug(
       "Trade event received " <>
-        "#{trade_event.symbol}@#{trade_event.price}@#{trade_event.quantity}"
+        "#{trade_event.symbol}@#{trade_event.price}"
     )
-  end
-
-  def handle_cast({:send, {type, msg} = frame}, state) do
-    IO.puts("Sending #{type} frame with payload #{msg}")
-    {:reply, frame, state}
   end
 end

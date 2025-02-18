@@ -6,7 +6,7 @@ defmodule Streamer.Binance.TradeEvent do
     :trade_id,
     :price,
     :quantity,
-    :buy_order_id,
+    :buyer_order_id,
     :seller_order_id,
     :trade_time,
     :buyer_market_maker
