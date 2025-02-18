@@ -26,7 +26,16 @@
     <div id="dropdown_menu" 
       class="absolute right-0 mt-2 py-2 w-48 bg-emDark rounded-lg shadow-xl border-white">
       <%= if @current_user do %>
-      Sign out
+         <.link
+        href={~p"/users/log_in"}
+        class="menu-item border-b border-white border-opacity-50"
+        role="menuitem"
+        tabindex="-1"
+        method="get"
+        id="user-menu-item-0"
+        >
+          Signed in as <%= @current_user.email %>
+        </.link>
       <% else %>
         <.link
         href={~p"/users/log_in"}
