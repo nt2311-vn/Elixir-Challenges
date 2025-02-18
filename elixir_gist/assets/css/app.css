@@ -17,6 +17,16 @@
   font-style: normal;
 }
 
+.dropdown-menu-arrow::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: calc(95% - 12px);
+  border: 0 5px 5px 5px;
+  border-style: solid;
+  border-color: transparent transparent white transparent;
+}
+
 .menu-item {
   @apply block px-4 py-2 text-sm text-white font-brand font-regular;
 }
