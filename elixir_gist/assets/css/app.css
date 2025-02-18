@@ -16,3 +16,20 @@
   font-weight: bold;
   font-style: normal;
 }
+
+.round-image-padding {
+  border-radius: 50%;
+  border: 1.5px solid #ffffff;
+  padding: 4px;
+}
+
+.img-down-arrow::after {
+  content: "";
+  position: absolute;
+  right: -10px;
+  top: 45%;
+  transform: translateY(-50%);
+  border-width: 3px 3px 0;
+  border-color: white transparent transparent transparent;
+  border-style: solid;
+}
