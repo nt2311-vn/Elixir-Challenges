@@ -7576,3 +7576,11 @@
 15:25:39.363 [debug] handled notification client -> server textDocument/didSave in 1ms
 
 15:25:39.468 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 614µs
+
+15:36:53.429 [debug] handled notification client -> server textDocument/didChange in 308µs
+
+15:36:55.379 [debug] handled notification client -> server textDocument/didChange in 102µs
+
+15:36:56.122 [debug] handled notification client -> server textDocument/didClose in 31ms
+
+15:36:57.549 id=124 [debug] handled request client -> server shutdown in 16ms
