@@ -109,8 +109,7 @@ defmodule Naive.Trader do
         },
         %State{
           sell_order: %Binance.OrderResponse{
-            order_id: order_id,
-            orig_qty: quantity
+            order_id: order_id
           }
         } = state
       ) do
@@ -118,7 +117,16 @@ defmodule Naive.Trader do
     {:stop, :normal, state}
   end
 
-  def handle_info(%TradeEvent{}, state) do
+  def handle_info(
+        %TradeEvent{buyer_order_id: order_id},
+        %State{
+          buy_order: %Binance.OrderResponse{
+            order_id: order_id,
+            status: "FILLED"
+          },
+          sell_order: %Binance.OrderResponse{}
+        } = state
+      ) do
     {:noreply, state}
   end
 
