@@ -6070,3 +6070,5 @@
 15:12:10.556 [debug] handled notification client -> server textDocument/didSave in 204µs
 
 15:12:10.660 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 512µs
+
+15:12:35.373 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 205µs
