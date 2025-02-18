@@ -17,6 +17,10 @@
   font-style: normal;
 }
 
+.menu-item {
+  @apply block px-4 py-2 text-sm text-white font-brand font-regular;
+}
+
 .round-image-padding {
   border-radius: 50%;
   border: 1.5px solid #ffffff;
