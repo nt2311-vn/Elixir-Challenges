@@ -24,6 +24,7 @@
       <img src="/images/user-image.svg" alt="Profile Image" class="round-image-padding w-8 h-8">
     </button>
     <div id="dropdown_menu" 
+      phx-click-away={ElixirGistWeb.Layouts.App.toggle_dropdown_menu()}
       class="dropdown-menu-arrow absolute right-0 mt-2 py-2 w-48 bg-emDark rounded-lg shadow-xl border-white"
       hidden="true"
       >
@@ -89,7 +90,6 @@
         >
         Register
         </.link>
-
       <% end %>
     </div>
   </div>
@@ -98,3 +98,17 @@
   <.flash_group flash={@flash} />
   <%= @inner_content %>
 </main>
+<footer class="h-[120px] w-full flex justify-center text-white px-16 py-20 font-brand font-regular text-xs">
+  <div class="w-full px-10">
+    <div class="border-t-[1px] border-white w-full"></div>
+    <div class="flex items-center space-x-2 py-6">
+      <img src="/images/em-logo.svg" alt="Elixir Gist logo" class="h-9 w-9" />
+      <p>© 2025 Elixir Gist LLC</p>
+      <div class="text-emLavender-dark px-4 space-x-3">
+        <a href={~p"/"} class="hover:underline">Terms</a>
+        <a href={~p"/"} class="hover:underline">Privacy</a>
+        <a href={~p"/"} class="hover:underline">About</a>
+      </div>
+    </div>
+  </div>
+</footer>
