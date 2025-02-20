@@ -1,18 +1,18 @@
 defmodule Simplequeue do
-  @moduledoc """
-  Documentation for `Simplequeue`.
-  """
+  use GenServer
 
   @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Simplequeue.hello()
-      :world
-
+  Start our queue and link it.
+  This is a helper funciton
   """
-  def hello do
-    :world
+
+  def start_link(state \\ []) do
+    GenServer.start_link(__MODULE__, state, name: __MODULE__)
   end
+
+  @doc """
+  GenServer.init/1 callback
+  """
+
+  def init(state), do: {:ok, state}
 end
