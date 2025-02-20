@@ -28,6 +28,14 @@ defmodule Simplequeue do
 
   def handle_call(:queue, _from, state), do: {:reply, state, state}
 
+  @doc """
+  GenServer.handle_cast/2 callback
+  """
+  def handle_cast({:enqueque, value}, state) do
+    {:noreply, state ++ [value]}
+  end
+
   def queue, do: GenServer.call(__MODULE__, :queue)
   def dequeue, do: GenServer.call(__MODULE__, :dequeue)
+  def enqueue(value), do: GenServer.cast(__MODULE__, {:enqueque, value})
 end
