@@ -17,6 +17,18 @@
   font-style: normal;
 }
 
+.em-gradient {
+  background-image: linear-gradient(
+    to bottom,
+    #631a61,
+    #551653,
+    #340e33,
+    #010101
+  );
+
+  height: 225px;
+}
+
 .dropdown-menu-arrow::before {
   content: "";
   position: absolute;
