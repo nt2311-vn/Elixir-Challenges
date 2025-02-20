@@ -11,4 +11,6 @@ defmodule Example do
 
     listen()
   end
+
+  def explode(), do: exit("kaboom !!!")
 end
