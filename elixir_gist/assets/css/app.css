@@ -47,6 +47,14 @@
   @apply hover:text-emDark-light;
 }
 
+form input[type="text"] {
+  @apply bg-emDark-dark font-brand font-regular text-white text-xs border border-white;
+}
+
+form input[type="text"]:focu {
+  @appy focus:outline-none focus:border-emLavender focus:ring-0;
+}
+
 .round-image-padding {
   border-radius: 50%;
   border: 1.5px solid #ffffff;
