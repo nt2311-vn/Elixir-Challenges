@@ -12,7 +12,14 @@ defmodule GenstageExample.Application do
     children = [
       {GenstageExample.Producer, 0},
       {GenstageExample.ProducerConsumer, []},
-      {GenstageExample.Consumer, []}
+      %{
+        id: 1,
+        start: {GenstageExample.Consumer, :start_link, [[]]}
+      },
+      %{
+        id: 2,
+        start: {GenstageExample.Consumer, :start_link, [[]]}
+      }
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
