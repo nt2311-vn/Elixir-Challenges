@@ -8,6 +8,9 @@ defmodule Friends.Person do
   end
 
   def changeset(struct, params) do
-    struct |> cast(params, [:name, :age]) |> validate_required([:name])
+    struct
+    |> cast(params, [:name, :age])
+    |> validate_required([:name])
+    |> validate_length(:name, min: 2)
   end
 end
