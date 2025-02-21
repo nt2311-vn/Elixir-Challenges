@@ -7,9 +7,12 @@ defmodule GenstageExample.Application do
 
   @impl true
   def start(_type, _args) do
+    import Supervisor.Spec, warn: false
+
     children = [
-      # Starts a worker by calling: GenstageExample.Worker.start_link(arg)
-      # {GenstageExample.Worker, arg}
+      {GenstageExample.Producer, 0},
+      {GenstageExample.ProducerConsumer, []},
+      {GenstageExample.Consumer, []}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
