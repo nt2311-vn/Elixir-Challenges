@@ -1,8 +1,6 @@
 # This file is responsible for configuring your application
 # and its dependencies with the aid of the Config module.
-#
-# This configuration file is loaded before any dependency and
-# is restricted to this project.
+# This configuration file is loaded before any dependency and is restricted to this project.
 
 # General application configuration
 import Config
@@ -59,6 +57,20 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+if File.exists?(".env"), do: Dotenvy.load()
+
+config :ueberauth, Ueberauth,
+  providers: [
+    google: {Ueberauth.Strategy.Google, [default_scope: "email profile"]}
+  ]
+
+config :ueberauth, Ueberauth.Strategy.Google.OAuth,
+  client_id: System.fetch_env!("GOOGLE_CLIENT_ID"),
+  client_secret: System.fetch_env!("GOOGLE_CLIENT_SECRET")
+
+config :portfolio_dashboard,
+  allowed_emails: ["nguyentoan231196@gmail.com", "bt.thuthao25@gmail.com"]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
