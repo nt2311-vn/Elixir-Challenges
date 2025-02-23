@@ -1,4 +1,5 @@
 defmodule PortfolioDashboardWeb.Router do
+  alias PortfolioDashboardWeb.Dashboard
   use PortfolioDashboardWeb, :router
 
   pipeline :browser do
@@ -18,6 +19,7 @@ defmodule PortfolioDashboardWeb.Router do
     pipe_through(:browser)
 
     get("/", PageController, :home)
+    live("/dashboard", Dashboard)
   end
 
   # Other scopes may use custom stacks.
@@ -31,6 +33,7 @@ defmodule PortfolioDashboardWeb.Router do
 
     get("/:provider", AuthController, :request)
     get("/:provider/callback", AuthController, :callback)
+    delete("/logout", AuthController, :delete)
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
