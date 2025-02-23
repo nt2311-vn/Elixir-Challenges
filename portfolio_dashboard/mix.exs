@@ -32,6 +32,7 @@ defmodule PortfolioDashboard.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:dotenvy, "~> 0.8.0"},
       {:httpoison, "~> 2.0"},
       {:phoenix, "~> 1.7.19"},
       {:phoenix_html, "~> 4.1"},
