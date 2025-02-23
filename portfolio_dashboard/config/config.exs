@@ -58,16 +58,14 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-if File.exists?(".env"), do: Dotenvy.load()
-
 config :ueberauth, Ueberauth,
   providers: [
     google: {Ueberauth.Strategy.Google, [default_scope: "email profile"]}
   ]
 
 config :ueberauth, Ueberauth.Strategy.Google.OAuth,
-  client_id: System.fetch_env!("GOOGLE_CLIENT_ID"),
-  client_secret: System.fetch_env!("GOOGLE_CLIENT_SECRET")
+  client_id: System.get_env("GOOGLE_CLIENT_ID"),
+  client_secret: System.get_env("GOOGLE_CLIENT_SECRET")
 
 config :portfolio_dashboard,
   allowed_emails: ["nguyentoan231196@gmail.com", "bt.thuthao25@gmail.com"]
