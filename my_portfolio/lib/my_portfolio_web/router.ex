@@ -1,7 +1,5 @@
 defmodule MyPortfolioWeb.Router do
   use MyPortfolioWeb, :router
-  alias MyPortfolioWeb.DashboardLive
-  alias MyPortfolioWeb.AuthController
 
   pipeline :browser do
     plug(:accepts, ["html"])
