@@ -15,14 +15,40 @@ defmodule MyPortfolioWeb.Router do
     plug(:accepts, ["json"])
   end
 
+  pipeline :require_authenticated_user do
+    plug(:put_user_token)
+    plug(:ensure_authenticated)
+  end
+
+  defp ensure_authenticated(conn, _opts) do
+    if get_session(conn, :current_user) do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You must be log in to access this page")
+      |> redirect(to: "/auth/google")
+      |> halt()
+    end
+  end
+
+  defp put_user_token(conn, _opts) do
+    if current_user = get_session(conn, :current_user) do
+      token = Phoenix.Token.sign(conn, "user socket", current_user)
+      assign(conn, :user_token, token)
+    else
+      conn
+    end
+  end
+
   scope "/", MyPortfolioWeb do
-    pipe_through(:browser)
+    pipe_through([:browser, :require_authenticated_user])
 
     get("/", PageController, :home)
   end
 
   scope "/auth", MyPortfolioWeb do
     pipe_through(:browser)
+
     get("/:provider", AuthController, :request)
     get("/:provider/callback", AuthController, :callback)
     post("/:provider/callback", AuthController, :callback)
