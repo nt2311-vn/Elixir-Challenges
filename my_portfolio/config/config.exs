@@ -30,6 +30,15 @@ config :my_portfolio, MyPortfolioWeb.Endpoint,
 # at the `config/runtime.exs`.
 config :my_portfolio, MyPortfolio.Mailer, adapter: Swoosh.Adapters.Local
 
+config :ueberauth, Ueberauth,
+  providers: [
+    google: {Ueberauth.Strategy.Google, []}
+  ]
+
+config :ueberauth, Ueberauth.Strategy.Google.OAuth,
+  client_id: System.get_env("GOOGLE_CLIENT_ID"),
+  client_secret: System.get_env("GOOGLE_CLIENT_SECRET")
+
 # Configure esbuild (the version is required)
 config :esbuild,
   version: "0.17.11",
