@@ -32,7 +32,7 @@ config :my_portfolio, MyPortfolio.Mailer, adapter: Swoosh.Adapters.Local
 
 config :ueberauth, Ueberauth,
   providers: [
-    google: {Ueberauth.Strategy.Google, []}
+    google: {Ueberauth.Strategy.Google, [default_scope: "email profile openid"]}
   ]
 
 config :ueberauth, Ueberauth.Strategy.Google.OAuth,
