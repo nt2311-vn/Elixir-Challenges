@@ -5,6 +5,10 @@
 # General application configuration
 import Config
 
+if File.exist?("config/secret.exs") do
+  import_config("secret.exs")
+end
+
 config :portfolio_dashboard,
   generators: [timestamp_type: :utc_datetime]
 
