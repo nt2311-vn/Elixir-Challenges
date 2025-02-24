@@ -1,5 +1,6 @@
 defmodule MyPortfolioWeb.Router do
   use MyPortfolioWeb, :router
+  alias MyPortfolioWeb.DashboardLive
   alias MyPortfolioWeb.AuthController
 
   pipeline :browser do
@@ -44,6 +45,7 @@ defmodule MyPortfolioWeb.Router do
     pipe_through([:browser, :require_authenticated_user])
 
     get("/", PageController, :home)
+    live("/dashboard", DashboardLive)
   end
 
   scope "/auth", MyPortfolioWeb do
